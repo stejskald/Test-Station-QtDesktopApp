@@ -1,0 +1,41 @@
+Change Password:
+ALTER USER postgres PASSWORD '<new-password>';
+
+ERROR:  character with byte sequence 0xc5 0x99 in encoding "UTF8" has no equivalent in encoding "WIN1252"
+dev=# SET client_encoding TO 'UTF8';
+
+
+
+ERROR: relation "test_table" does not exist
+SQL state: 42P01
+
+dev=# \dp
+                                    Access privileges
+ Schema |       Name        |   Type   | Access privileges | Column privileges | Policies
+--------+-------------------+----------+-------------------+-------------------+----------
+ public | test_table        | table    |                   |                   |
+ public | test_table_id_seq | sequence |                   |                   |
+(2 rows)
+
+
+dev=# START TRANSACTION;
+dev=# CREATE ROLE admin WITH PASSWORD '123';
+dev=# GRANT SELECT ON ALL TABLES IN SCHEMA public to PUBLIC;
+dev=# GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO admin;
+dev=# COMMIT;
+
+dev=# \dp
+                                        Access privileges
+ Schema |       Name        |   Type   |     Access privileges     | Column privileges | Policies
+--------+-------------------+----------+---------------------------+-------------------+----------
+ public | test_table        | table    | postgres=arwdDxt/postgres+|                   |
+        |                   |          | =r/postgres              +|                   |
+        |                   |          | admin=arwdDxt/postgres    |                   |
+ public | test_table_id_seq | sequence |                           |                   |
+(2 rows)
+
+
+FATAL: role "admin" is not permitted to log in
+dev=# ALTER ROLE "admin" WITH LOGIN;
+
+FATAL: database "admin" does not exist
