@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "The service desktop application for the test station"
 authors = ["David Stejskal <211177@vut.cz>"]
 readme = "README.md"
+repository = "https://github.com/Dejv99/DP-QtDesktopApp"
 
 [tool.poetry.dependencies]
 python = "^3.10"

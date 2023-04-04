@@ -99,7 +99,7 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>150</width>
+             <width>135</width>
              <height>0</height>
             </size>
            </property>
@@ -202,7 +202,7 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>150</width>
+             <width>135</width>
              <height>0</height>
             </size>
            </property>
@@ -240,7 +240,7 @@
            <property name="text">
             <string>Login</string>
            </property>
-           <property name="autoDefault">
+           <property name="default">
             <bool>true</bool>
            </property>
           </widget>
@@ -423,7 +423,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
         </font>
        </property>
        <property name="text">
-        <string>Filtrovat záznamy</string>
+        <string>Zobrazit záznamy</string>
        </property>
       </widget>
      </item>
@@ -436,7 +436,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <number>6</number>
        </property>
        <item row="1" column="0">
-        <widget class="QLabel" name="labelUpdateColumn">
+        <widget class="QLabel" name="labelUpdateColumns">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
            <horstretch>0</horstretch>
@@ -444,20 +444,26 @@ li.checked::marker { content: &quot;\2612&quot;; }
           </sizepolicy>
          </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Sloupec&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Sloupce&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="buddy">
-          <cstring>lineEditUpdateColumn</cstring>
+          <cstring>lineEditUpdateColumns</cstring>
          </property>
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QLineEdit" name="lineEditUpdateColumn">
+        <widget class="QLineEdit" name="lineEditUpdateColumns">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>135</width>
+           <height>0</height>
+          </size>
          </property>
          <property name="maximumSize">
           <size>
@@ -466,15 +472,18 @@ li.checked::marker { content: &quot;\2612&quot;; }
           </size>
          </property>
          <property name="text">
-          <string>address</string>
+          <string>address, department</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
          </property>
+         <property name="placeholderText">
+          <string>sloupec1, sloupec2...</string>
+         </property>
         </widget>
        </item>
        <item row="2" column="0">
-        <widget class="QLabel" name="labelUpdateValue">
+        <widget class="QLabel" name="labelUpdateValues">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
            <horstretch>0</horstretch>
@@ -482,20 +491,26 @@ li.checked::marker { content: &quot;\2612&quot;; }
           </sizepolicy>
          </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Hodnota&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Hodnoty&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="buddy">
-          <cstring>lineEditUpdateValue</cstring>
+          <cstring>lineEditUpdateValues</cstring>
          </property>
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QLineEdit" name="lineEditUpdateValue">
+        <widget class="QLineEdit" name="lineEditUpdateValues">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>135</width>
+           <height>0</height>
+          </size>
          </property>
          <property name="maximumSize">
           <size>
@@ -510,10 +525,13 @@ li.checked::marker { content: &quot;\2612&quot;; }
           <enum>Qt::RightToLeft</enum>
          </property>
          <property name="text">
-          <string>'Praha'</string>
+          <string>'Praha', 'eON'</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
+         </property>
+         <property name="placeholderText">
+          <string>'hodnota1', 'hodnota2'...</string>
          </property>
         </widget>
        </item>
@@ -541,6 +559,12 @@ li.checked::marker { content: &quot;\2612&quot;; }
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
+         <property name="minimumSize">
+          <size>
+           <width>135</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="maximumSize">
           <size>
            <width>175</width>
@@ -548,7 +572,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
           </size>
          </property>
          <property name="toolTip">
-          <string>Hondotu v rámci podmínky zadávejte včetně jednoduchých uvozovek, např. jmeno = 'Adam'.</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Hondotu v rámci podmínky zadávejte včetně jednoduchých uvozovek, např.: jmeno = 'Adam'.&lt;/p&gt;&lt;p&gt;Podmínky lze také kombinovat, např.: jmeno = 'Adam' AND age = 18.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="layoutDirection">
           <enum>Qt::RightToLeft</enum>
@@ -560,7 +584,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
           <set>Qt::AlignCenter</set>
          </property>
          <property name="placeholderText">
-          <string>sloupec = hodnota</string>
+          <string>sloupec = 'hodnota'</string>
          </property>
         </widget>
        </item>
@@ -612,7 +636,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Podmínka&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="buddy">
-          <cstring>lineEditReadLimit</cstring>
+          <cstring>lineEditReadCondition</cstring>
          </property>
         </widget>
        </item>
@@ -624,6 +648,12 @@ li.checked::marker { content: &quot;\2612&quot;; }
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
+         <property name="minimumSize">
+          <size>
+           <width>135</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="maximumSize">
           <size>
            <width>175</width>
@@ -631,7 +661,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
           </size>
          </property>
          <property name="toolTip">
-          <string>Hondotu v rámci podmínky zadávejte včetně jednoduchých uvozovek, např. jmeno = 'Adam'.</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Hondotu v rámci podmínky zadávejte včetně jednoduchých uvozovek, např.: jmeno = 'Adam'.&lt;/p&gt;&lt;p&gt;Podmínky lze také kombinovat, např.: jmeno = 'Adam' AND age = 18.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="layoutDirection">
           <enum>Qt::RightToLeft</enum>
@@ -643,7 +673,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
           <set>Qt::AlignCenter</set>
          </property>
          <property name="placeholderText">
-          <string>sloupec = hodnota</string>
+          <string>sloupec = 'hodnota'</string>
          </property>
         </widget>
        </item>
@@ -673,18 +703,21 @@ li.checked::marker { content: &quot;\2612&quot;; }
          </property>
          <property name="minimumSize">
           <size>
-           <width>91</width>
+           <width>135</width>
            <height>0</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>16777215</width>
+           <width>175</width>
            <height>16777215</height>
           </size>
          </property>
          <property name="text">
           <string>20</string>
+         </property>
+         <property name="maxLength">
+          <number>5</number>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -710,7 +743,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Sloupce&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="buddy">
-          <cstring>lineEditReadLimit</cstring>
+          <cstring>lineEditReadColumns</cstring>
          </property>
         </widget>
        </item>
@@ -721,6 +754,12 @@ li.checked::marker { content: &quot;\2612&quot;; }
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>135</width>
+           <height>0</height>
+          </size>
          </property>
          <property name="maximumSize">
           <size>
@@ -738,7 +777,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
           <set>Qt::AlignCenter</set>
          </property>
          <property name="placeholderText">
-          <string/>
+          <string>sloupec1, sloupec2...</string>
          </property>
         </widget>
        </item>
@@ -776,6 +815,12 @@ li.checked::marker { content: &quot;\2612&quot;; }
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
+         <property name="minimumSize">
+          <size>
+           <width>135</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="maximumSize">
           <size>
            <width>175</width>
@@ -783,7 +828,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
           </size>
          </property>
          <property name="toolTip">
-          <string>Hondotu v rámci podmínky zadávejte včetně jednoduchých uvozovek, např. jmeno = 'Adam'.</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Hondotu v rámci podmínky zadávejte včetně jednoduchých uvozovek, např.: jmeno = 'Adam'.&lt;/p&gt;&lt;p&gt;Podmínky lze také kombinovat, např.: jmeno = 'Adam' AND age = 18.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="text">
           <string>employee = 'Pavel'</string>
@@ -792,7 +837,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
           <set>Qt::AlignCenter</set>
          </property>
          <property name="placeholderText">
-          <string>sloupec = hodnota</string>
+          <string>sloupec = 'hodnota'</string>
          </property>
         </widget>
        </item>
@@ -832,20 +877,26 @@ li.checked::marker { content: &quot;\2612&quot;; }
           <string>hard-coded</string>
          </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Zaměstnanec&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Hodnoty&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="buddy">
-          <cstring>lineEditCreateName</cstring>
+          <cstring>lineEditCreateValues</cstring>
          </property>
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QLineEdit" name="lineEditCreateName">
+        <widget class="QLineEdit" name="lineEditCreateValues">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>135</width>
+           <height>0</height>
+          </size>
          </property>
          <property name="maximumSize">
           <size>
@@ -863,7 +914,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
           <set>Qt::AlignCenter</set>
          </property>
          <property name="placeholderText">
-          <string>'Jméno'</string>
+          <string>'hodnota1', 'hodnota2'...</string>
          </property>
         </widget>
        </item>
@@ -879,7 +930,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Sloupce&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="buddy">
-          <cstring>lineEditReadLimit</cstring>
+          <cstring>lineEditCreateColumns</cstring>
          </property>
         </widget>
        </item>
@@ -890,6 +941,12 @@ li.checked::marker { content: &quot;\2612&quot;; }
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>135</width>
+           <height>0</height>
+          </size>
          </property>
          <property name="maximumSize">
           <size>
@@ -907,7 +964,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
           <set>Qt::AlignCenter</set>
          </property>
          <property name="placeholderText">
-          <string/>
+          <string>sloupec1, sloupec2...</string>
          </property>
         </widget>
        </item>
@@ -1164,9 +1221,18 @@ li.checked::marker { content: &quot;\2612&quot;; }
   <tabstop>comboBoxDBName</tabstop>
   <tabstop>btnLogin</tabstop>
   <tabstop>textDBStatus</tabstop>
+  <tabstop>lineEditCreateColumns</tabstop>
+  <tabstop>lineEditCreateValues</tabstop>
   <tabstop>btnCreate</tabstop>
+  <tabstop>lineEditReadColumns</tabstop>
+  <tabstop>lineEditReadCondition</tabstop>
+  <tabstop>lineEditReadLimit</tabstop>
   <tabstop>btnRead</tabstop>
+  <tabstop>lineEditUpdateColumns</tabstop>
+  <tabstop>lineEditUpdateValues</tabstop>
+  <tabstop>lineEditUpdateCondition</tabstop>
   <tabstop>btnUpdate</tabstop>
+  <tabstop>lineEditDeleteCondition</tabstop>
   <tabstop>btnDelete</tabstop>
   <tabstop>comboBoxTableViewed</tabstop>
   <tabstop>tableViewSelected</tabstop>

@@ -5,7 +5,7 @@ import pyqtgraph as pg
 
 # from include.AbstractTableModel import TableModel
 from PyQt6.QtCore import QCoreApplication, QSize, Qt, QTimer
-from PyQt6.QtGui import QAction, QFont, QIcon, QKeySequence, QPalette
+from PyQt6.QtGui import QAction, QFont, QFontMetrics, QIcon, QKeySequence, QPalette
 from PyQt6.QtSql import QSqlDatabase, QSqlQuery, QSqlQueryModel
 from PyQt6.QtWidgets import (
     QApplication,
@@ -79,7 +79,7 @@ class TerminalTab(QWidget, Ui_TerminalTab):
         self.setupUi(self)
 
 
-# pyuic6 main/DP/UIs/DatabaseTab.ui -o main/DP/UIs/ui_DatabaseTab.py
+# pyuic6 UIs/DatabaseTab.ui -o UIs/ui_DatabaseTab.py
 class DatabaseTab(QWidget, Ui_DatabaseTab):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -87,8 +87,19 @@ class DatabaseTab(QWidget, Ui_DatabaseTab):
 
         # self._data = data
         # self._headers = headers
+        self._lineEditminWidth = self.lineEditUser.minimumWidth()
 
         self.btnLogin.clicked.connect(self.loginToDB)
+
+        self.lineEditReadColumns.textChanged.connect(self.lineEditContentChanged)
+        self.lineEditReadCondition.textChanged.connect(self.lineEditContentChanged)
+        self.lineEditCreateColumns.textChanged.connect(self.lineEditContentChanged)
+        self.lineEditCreateValues.textChanged.connect(self.lineEditContentChanged)
+        self.lineEditUpdateColumns.textChanged.connect(self.lineEditContentChanged)
+        self.lineEditUpdateValues.textChanged.connect(self.lineEditContentChanged)
+        self.lineEditUpdateCondition.textChanged.connect(self.lineEditContentChanged)
+        self.lineEditDeleteCondition.textChanged.connect(self.lineEditContentChanged)
+
         self.btnCreate.clicked.connect(self.insertIntoTable)
         self.btnRead.clicked.connect(self.selectFromTable)
         self.btnUpdate.clicked.connect(self.updateTableRecord)
@@ -116,6 +127,29 @@ class DatabaseTab(QWidget, Ui_DatabaseTab):
             )
         else:
             self.textDBStatus.setText("Connection to the DB was successful!")
+
+    def insertIntoTable(self):
+        table = self.comboBoxTableViewed.currentText()
+        columns = self.lineEditCreateColumns.text()
+        values = self.lineEditCreateValues.text()
+        queryInsertCmd = "INSERT INTO "
+
+        if not columns or not values:
+            self.textDBStatus.setText(
+                'Při vytváření záznamu nesmí být pole "Sloupce" a "Hodnoty" prázdné!'
+            )
+            return
+        else:
+            queryInsertCmd += '"{}" ({}) VALUES ({})'.format(table, columns, values)
+
+        queryInsert = QSqlQuery(self.devDB)
+        queryInsert.prepare(queryInsertCmd)
+        if not queryInsert.exec():
+            self.textDBStatus.setText(
+                "{}".format(queryInsert.lastError().databaseText())
+            )
+        else:
+            self.textDBStatus.setText("Insertion to the selected table was successful!")
 
     def selectFromTable(self):
         columns = self.lineEditReadColumns.text()
@@ -145,30 +179,17 @@ class DatabaseTab(QWidget, Ui_DatabaseTab):
         self.tableModelSQL.setQuery(queryRead)
         self.tableViewSelected.setModel(self.tableModelSQL)
 
-    def insertIntoTable(self):
-        queryInsert = QSqlQuery(self.devDB)
-        table = self.comboBoxTableViewed.currentText()
-        employee = self.lineEditCreateName.text()
-        # queryInsertCmd
-
-        if not queryInsert.exec(
-            'INSERT INTO "{}" (employee) VALUES ({})'.format(table, employee)
-        ):
-            self.textDBStatus.setText(
-                "{}".format(queryInsert.lastError().databaseText())
-            )
-        else:
-            self.textDBStatus.setText("Insertion to the selected table was successful!")
-
     def updateTableRecord(self):
         queryUpdate = QSqlQuery(self.devDB)
         table = self.comboBoxTableViewed.currentText()
-        column = self.lineEditUpdateColumn.text()
-        value = self.lineEditUpdateValue.text()
+        columns = self.lineEditUpdateColumns.text()
+        values = self.lineEditUpdateValues.text()
         condition = self.lineEditUpdateCondition.text()
 
         if not queryUpdate.exec(
-            "UPDATE {} SET {} = {} WHERE {}".format(table, column, value, condition)
+            "UPDATE {} SET ({}) = ({}) WHERE {}".format(
+                table, columns, values, condition
+            )
         ):
             self.textDBStatus.setText(
                 "{}".format(queryUpdate.lastError().databaseText())
@@ -191,6 +212,18 @@ class DatabaseTab(QWidget, Ui_DatabaseTab):
             self.textDBStatus.setText(
                 "Deletion of the record in the selected table was successful!"
             )
+
+    def lineEditContentChanged(self):
+        sender = self.sender()
+        font = QFont("", 0)
+        fm = QFontMetrics(font)
+
+        text = sender.text()
+        newWidth = int(fm.boundingRect(text).width() * 0.8)
+        if newWidth > self._lineEditminWidth:
+            sender.setFixedWidth(newWidth)
+        else:
+            sender.setMinimumWidth(self._lineEditminWidth)
 
 
 class MainWindow(QMainWindow):
