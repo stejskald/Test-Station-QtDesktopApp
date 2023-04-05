@@ -240,8 +240,11 @@
            <property name="text">
             <string>Login</string>
            </property>
-           <property name="default">
+           <property name="autoDefault">
             <bool>true</bool>
+           </property>
+           <property name="default">
+            <bool>false</bool>
            </property>
           </widget>
          </item>
@@ -614,6 +617,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="text">
         <string>UPDATE</string>
        </property>
+       <property name="autoDefault">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item row="1" column="1">
@@ -851,7 +857,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
       </layout>
      </item>
      <item row="1" column="0">
-      <layout class="QFormLayout" name="fLayoutCreate">
+      <layout class="QFormLayout" name="fLayoutInsert">
        <property name="horizontalSpacing">
         <number>6</number>
        </property>
@@ -859,14 +865,14 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <number>6</number>
        </property>
        <item row="0" column="0" colspan="2">
-        <widget class="Line" name="lineCreateAbove">
+        <widget class="Line" name="lineInsertAbove">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
         </widget>
        </item>
        <item row="2" column="0">
-        <widget class="QLabel" name="labelCreateValues">
+        <widget class="QLabel" name="labelInsertValues">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
            <horstretch>0</horstretch>
@@ -880,12 +886,12 @@ li.checked::marker { content: &quot;\2612&quot;; }
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Hodnoty&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="buddy">
-          <cstring>lineEditCreateValues</cstring>
+          <cstring>lineEditInsertValues</cstring>
          </property>
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QLineEdit" name="lineEditCreateValues">
+        <widget class="QLineEdit" name="lineEditInsertValues">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -919,7 +925,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
         </widget>
        </item>
        <item row="1" column="0">
-        <widget class="QLabel" name="labelCreateColumns">
+        <widget class="QLabel" name="labelInsertColumns">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
            <horstretch>0</horstretch>
@@ -930,12 +936,12 @@ li.checked::marker { content: &quot;\2612&quot;; }
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Sloupce&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="buddy">
-          <cstring>lineEditCreateColumns</cstring>
+          <cstring>lineEditInsertColumns</cstring>
          </property>
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QLineEdit" name="lineEditCreateColumns">
+        <widget class="QLineEdit" name="lineEditInsertColumns">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -971,7 +977,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
       </layout>
      </item>
      <item row="3" column="0" alignment="Qt::AlignHCenter">
-      <widget class="QPushButton" name="btnCreate">
+      <widget class="QPushButton" name="btnInsert">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -989,6 +995,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
        </property>
        <property name="text">
         <string>CREATE</string>
+       </property>
+       <property name="autoDefault">
+        <bool>true</bool>
        </property>
        <property name="default">
         <bool>false</bool>
@@ -1012,6 +1021,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="text">
         <string>READ</string>
        </property>
+       <property name="autoDefault">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item row="3" column="3" alignment="Qt::AlignHCenter">
@@ -1031,10 +1043,13 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="text">
         <string>DELETE</string>
        </property>
+       <property name="autoDefault">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item row="0" column="0">
-      <widget class="QLabel" name="labelServiceCreate">
+      <widget class="QLabel" name="labelServiceInsert">
        <property name="font">
         <font>
          <bold>true</bold>
@@ -1083,7 +1098,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
       </spacer>
      </item>
      <item row="4" column="0">
-      <widget class="Line" name="lineCreateBelow">
+      <widget class="Line" name="lineInsertBelow">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -1221,9 +1236,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
   <tabstop>comboBoxDBName</tabstop>
   <tabstop>btnLogin</tabstop>
   <tabstop>textDBStatus</tabstop>
-  <tabstop>lineEditCreateColumns</tabstop>
-  <tabstop>lineEditCreateValues</tabstop>
-  <tabstop>btnCreate</tabstop>
+  <tabstop>lineEditInsertColumns</tabstop>
+  <tabstop>lineEditInsertValues</tabstop>
+  <tabstop>btnInsert</tabstop>
   <tabstop>lineEditReadColumns</tabstop>
   <tabstop>lineEditReadCondition</tabstop>
   <tabstop>lineEditReadLimit</tabstop>

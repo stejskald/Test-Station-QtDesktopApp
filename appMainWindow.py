@@ -93,14 +93,14 @@ class DatabaseTab(QWidget, Ui_DatabaseTab):
 
         self.lineEditReadColumns.textChanged.connect(self.lineEditContentChanged)
         self.lineEditReadCondition.textChanged.connect(self.lineEditContentChanged)
-        self.lineEditCreateColumns.textChanged.connect(self.lineEditContentChanged)
-        self.lineEditCreateValues.textChanged.connect(self.lineEditContentChanged)
+        self.lineEditInsertColumns.textChanged.connect(self.lineEditContentChanged)
+        self.lineEditInsertValues.textChanged.connect(self.lineEditContentChanged)
         self.lineEditUpdateColumns.textChanged.connect(self.lineEditContentChanged)
         self.lineEditUpdateValues.textChanged.connect(self.lineEditContentChanged)
         self.lineEditUpdateCondition.textChanged.connect(self.lineEditContentChanged)
         self.lineEditDeleteCondition.textChanged.connect(self.lineEditContentChanged)
 
-        self.btnCreate.clicked.connect(self.insertIntoTable)
+        self.btnInsert.clicked.connect(self.insertIntoTable)
         self.btnRead.clicked.connect(self.selectFromTable)
         self.btnUpdate.clicked.connect(self.updateTableRecord)
         self.btnDelete.clicked.connect(self.deleteTableRecord)
@@ -130,8 +130,8 @@ class DatabaseTab(QWidget, Ui_DatabaseTab):
 
     def insertIntoTable(self):
         table = self.comboBoxTableViewed.currentText()
-        columns = self.lineEditCreateColumns.text()
-        values = self.lineEditCreateValues.text()
+        columns = self.lineEditInsertColumns.text()
+        values = self.lineEditInsertValues.text()
         queryInsertCmd = "INSERT INTO "
 
         if not columns or not values:
@@ -149,7 +149,9 @@ class DatabaseTab(QWidget, Ui_DatabaseTab):
                 "{}".format(queryInsert.lastError().databaseText())
             )
         else:
-            self.textDBStatus.setText("Insertion to the selected table was successful!")
+            self.textDBStatus.setText(
+                "Vložení nového záznamu do tabulky {} proběhlo úspěšně!".format(table)
+            )
 
     def selectFromTable(self):
         columns = self.lineEditReadColumns.text()
@@ -173,7 +175,8 @@ class DatabaseTab(QWidget, Ui_DatabaseTab):
             self.textDBStatus.setText("{}".format(queryRead.lastError().databaseText()))
         else:
             self.textDBStatus.setText(
-                "Selection from the selected table was successful!"
+                "Výběr záznamů z tabulky {} proběhlo úspěšně!\n".format(table)
+                + "Bylo vybráno {} záznamů.".format(queryRead.size())
             )
 
         self.tableModelSQL.setQuery(queryRead)
@@ -196,7 +199,8 @@ class DatabaseTab(QWidget, Ui_DatabaseTab):
             )
         else:
             self.textDBStatus.setText(
-                "Update of the record in the selected table was successful!"
+                "Aktualizace záznamů z tabulky {} proběhlo úspěšně!\n".format(table)
+                + "Bylo aktualizováno {} záznamů.".format(queryUpdate.numRowsAffected())
             )
 
     def deleteTableRecord(self):
@@ -210,7 +214,8 @@ class DatabaseTab(QWidget, Ui_DatabaseTab):
             )
         else:
             self.textDBStatus.setText(
-                "Deletion of the record in the selected table was successful!"
+                "Odstranění záznamů z tabulky {} proběhlo úspěšně!\n".format(table)
+                + "Bylo odebráno {} záznamů.".format(queryDelete.numRowsAffected())
             )
 
     def lineEditContentChanged(self):
