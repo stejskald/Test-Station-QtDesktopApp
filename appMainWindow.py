@@ -2,20 +2,16 @@ import ctypes
 from random import randint
 
 import pyqtgraph as pg
+from PyQt6.QtCore import QCoreApplication, QSize, Qt, QTimer
+from PyQt6.QtGui import (QAction, QFont, QFontMetrics, QIcon, QKeySequence,
+                         QPalette)
+from PyQt6.QtSql import (QSqlDatabase, QSqlDriver, QSqlQuery, QSqlQueryModel,
+                         QSqlTableModel)
+from PyQt6.QtWidgets import (QApplication, QMainWindow, QStatusBar, QTabWidget,
+                             QToolBar, QWidget)
 
 # from include.AbstractTableModel import TableModel
-from PyQt6.QtCore import QCoreApplication, QSize, Qt, QTimer
-from PyQt6.QtGui import QAction, QFont, QFontMetrics, QIcon, QKeySequence, QPalette
-from PyQt6.QtSql import QSqlDatabase, QSqlQuery, QSqlQueryModel
-from PyQt6.QtWidgets import (
-    QApplication,
-    QMainWindow,
-    QStatusBar,
-    QTabWidget,
-    QToolBar,
-    QWidget,
-)
-
+from include.SqlQueryModel import SqlQueryModel
 from UIs.ui_ConfigurationTab import Ui_ConfigurationTab
 from UIs.ui_DatabaseTab import Ui_DatabaseTab
 from UIs.ui_MeasurementTab import Ui_MeasurementTab
@@ -73,6 +69,7 @@ class MeasurementTab(QWidget, Ui_MeasurementTab):
         self.lineDataRef.setData(self.time, self.voltage)  # Update the line data ref
 
 
+# pyuic6 UIs/TerminalTab.ui -o UIs/ui_TerminalTab.py
 class TerminalTab(QWidget, Ui_TerminalTab):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -85,14 +82,12 @@ class DatabaseTab(QWidget, Ui_DatabaseTab):
         super().__init__(parent)
         self.setupUi(self)
 
-        # self._data = data
-        # self._headers = headers
         self._lineEditminWidth = self.lineEditUser.minimumWidth()
 
         self.btnLogin.clicked.connect(self.loginToDB)
 
-        self.lineEditReadColumns.textChanged.connect(self.lineEditContentChanged)
-        self.lineEditReadCondition.textChanged.connect(self.lineEditContentChanged)
+        self.lineEditSelectColumns.textChanged.connect(self.lineEditContentChanged)
+        self.lineEditSelectCondition.textChanged.connect(self.lineEditContentChanged)
         self.lineEditInsertColumns.textChanged.connect(self.lineEditContentChanged)
         self.lineEditInsertValues.textChanged.connect(self.lineEditContentChanged)
         self.lineEditUpdateColumns.textChanged.connect(self.lineEditContentChanged)
@@ -101,13 +96,13 @@ class DatabaseTab(QWidget, Ui_DatabaseTab):
         self.lineEditDeleteCondition.textChanged.connect(self.lineEditContentChanged)
 
         self.btnInsert.clicked.connect(self.insertIntoTable)
-        self.btnRead.clicked.connect(self.selectFromTable)
-        self.btnUpdate.clicked.connect(self.updateTableRecord)
-        self.btnDelete.clicked.connect(self.deleteTableRecord)
+        self.btnSelect.clicked.connect(self.selectFromTable)
+        self.btnUpdate.clicked.connect(self.updateTableRecords)
+        self.btnDelete.clicked.connect(self.deleteTableRecords)
 
-        # self.tableDataModel = TableModel(self._data, self._headers)
-        # self.tableViewSelected.setModel(self.tableDataModel)
-        self.tableModelSQL = QSqlQueryModel()
+        self.queryModelSQL = QSqlQueryModel()
+        # self.queryModelSQL = SqlQueryModel()
+        self.tableViewSelected.setModel(self.queryModelSQL)
 
     def loginToDB(self):
         user = self.lineEditUser.text()
@@ -154,35 +149,39 @@ class DatabaseTab(QWidget, Ui_DatabaseTab):
             )
 
     def selectFromTable(self):
-        columns = self.lineEditReadColumns.text()
+        columns = self.lineEditSelectColumns.text()
         table = self.comboBoxTableViewed.currentText()
-        condition = self.lineEditReadCondition.text()
-        limit = self.lineEditReadLimit.text()
+        condition = self.lineEditSelectCondition.text()
+        limit = self.lineEditSelectLimit.text()
 
-        queryReadCmd = "SELECT "
+        querySelectCmd = "SELECT "
         if not columns:
-            queryReadCmd += '* FROM "{}"'.format(table)
+            querySelectCmd += '* FROM "{}"'.format(table)
         else:
-            queryReadCmd += '{} FROM "{}"'.format(columns, table)
+            querySelectCmd += '{} FROM "{}"'.format(columns, table)
         if condition:
-            queryReadCmd += " WHERE {}".format(condition)
+            querySelectCmd += " WHERE {}".format(condition)
         if limit:
-            queryReadCmd += " LIMIT {}".format(limit)
+            querySelectCmd += " LIMIT {}".format(limit)
 
-        queryRead = QSqlQuery(self.devDB)
-        queryRead.prepare(queryReadCmd)
-        if not queryRead.exec():
-            self.textDBStatus.setText("{}".format(queryRead.lastError().databaseText()))
+        self.querySelect = QSqlQuery(self.devDB)
+        self.querySelect.prepare(querySelectCmd)
+        if not self.querySelect.exec():
+            self.textDBStatus.setText(
+                "{}".format(self.querySelect.lastError().databaseText())
+            )
         else:
             self.textDBStatus.setText(
                 "Výběr záznamů z tabulky {} proběhlo úspěšně!\n".format(table)
-                + "Bylo vybráno {} záznamů.".format(queryRead.size())
+                + "Bylo vybráno {} záznamů.".format(self.querySelect.size())
             )
 
-        self.tableModelSQL.setQuery(queryRead)
-        self.tableViewSelected.setModel(self.tableModelSQL)
+        self.queryModelSQL.setQuery(self.querySelect)
 
-    def updateTableRecord(self):
+        # print(self.queryModelSQL.rowCount())
+        # print(self.queryModelSQL.columnCount())
+
+    def updateTableRecords(self):
         queryUpdate = QSqlQuery(self.devDB)
         table = self.comboBoxTableViewed.currentText()
         columns = self.lineEditUpdateColumns.text()
@@ -203,7 +202,7 @@ class DatabaseTab(QWidget, Ui_DatabaseTab):
                 + "Bylo aktualizováno {} záznamů.".format(queryUpdate.numRowsAffected())
             )
 
-    def deleteTableRecord(self):
+    def deleteTableRecords(self):
         queryDelete = QSqlQuery(self.devDB)
         table = self.comboBoxTableViewed.currentText()
         condition = self.lineEditDeleteCondition.text()
@@ -236,14 +235,15 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__()
 
         self.setWindowTitle("Application for PCB testing")
-        self.setWindowIcon(QIcon("images/meter02-icon.png"))
+        self.setWindowIcon(QIcon("icons/meter02-icon.png"))
         self.setMinimumSize(QSize(1200, 900))
+        self.showMaximized()
 
         self.toolbar = QToolBar("Main Toolbar")
         self.toolbar.setIconSize(QSize(16, 16))
         self.addToolBar(self.toolbar)
 
-        btnBugAction = QAction(QIcon("images/bug.png"), "&Bug simulation", self)
+        btnBugAction = QAction(QIcon("icons/bug.png"), "&Bug simulation", self)
         btnBugAction.setStatusTip("Simulate a Bug.")
         btnBugAction.setCheckable(True)
         self.toolbar.addAction(btnBugAction)
@@ -254,7 +254,9 @@ class MainWindow(QMainWindow):
         fileMenu = menuBar.addMenu("&File")
         fileSubmenu = fileMenu.addMenu("&Submenu")
         fileSubmenu.addAction(btnBugAction)
-        btnExitApplication = QAction("E&xit Application", self)
+        btnExitApplication = QAction(
+            QIcon("icons/cross.png"), "E&xit Application", self
+        )
         btnExitApplication.setStatusTip("Push to exit the Application.")
         btnExitApplication.triggered.connect(QCoreApplication.instance().quit)
         fileMenu.addAction(btnExitApplication)

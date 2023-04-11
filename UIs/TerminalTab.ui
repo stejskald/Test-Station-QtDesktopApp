@@ -21,7 +21,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QLabel" name="label_serialCom">
+    <widget class="QLabel" name="labelSerialCom">
      <property name="font">
       <font>
        <pointsize>10</pointsize>
@@ -37,12 +37,12 @@
     </widget>
    </item>
    <item>
-    <layout class="QGridLayout" name="gridLayout_2">
+    <layout class="QGridLayout" name="gLayoutComSelect">
      <property name="leftMargin">
-      <number>20</number>
+      <number>10</number>
      </property>
      <item row="0" column="1">
-      <widget class="QComboBox" name="comboBox">
+      <widget class="QComboBox" name="comboBoxComSelect">
        <property name="minimumSize">
         <size>
          <width>70</width>
@@ -106,7 +106,7 @@
       </widget>
      </item>
      <item row="0" column="2">
-      <spacer name="horizontalSpacer_2">
+      <spacer name="hSpacerComSelect">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -124,14 +124,14 @@
         <string>Vyberte sériovou linku k připojení</string>
        </property>
        <property name="buddy">
-        <cstring>comboBox</cstring>
+        <cstring>comboBoxComSelect</cstring>
        </property>
       </widget>
      </item>
     </layout>
    </item>
    <item>
-    <spacer name="verticalSpacer">
+    <spacer name="vSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
@@ -147,240 +147,247 @@
     </spacer>
    </item>
    <item>
-    <widget class="QLabel" name="label_serialComConfig">
-     <property name="font">
-      <font>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Konfigurace sériové linky</string>
-     </property>
-     <property name="margin">
-      <number>0</number>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <layout class="QGridLayout" name="gridLayout">
+    <layout class="QVBoxLayout" name="vLayoutConfiguration">
      <property name="leftMargin">
-      <number>20</number>
+      <number>10</number>
      </property>
-     <item row="0" column="1">
-      <widget class="QLineEdit" name="lineEdit_baud">
-       <property name="minimumSize">
-        <size>
-         <width>100</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>150</width>
-         <height>25</height>
-        </size>
-       </property>
-       <property name="maxLength">
-        <number>8</number>
-       </property>
-       <property name="placeholderText">
-        <string>9600</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="label_flowCtrl">
-       <property name="text">
-        <string>Řízení toku</string>
-       </property>
-       <property name="buddy">
-        <cstring>comboBox_3</cstring>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="label_parity">
-       <property name="text">
-        <string>Parita</string>
-       </property>
-       <property name="buddy">
-        <cstring>comboBox_2</cstring>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="QComboBox" name="comboBox_3">
-       <property name="minimumSize">
-        <size>
-         <width>100</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>150</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="currentText">
-        <string/>
-       </property>
-       <property name="placeholderText">
-        <string>Žádné</string>
-       </property>
-       <item>
-        <property name="text">
-         <string>Žádné</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>XON/XOFF</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>RTS/CTS</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>DSR/DTR</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QLineEdit" name="lineEdit_stopBitCount">
-       <property name="minimumSize">
-        <size>
-         <width>100</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>150</width>
-         <height>25</height>
-        </size>
-       </property>
-       <property name="maxLength">
-        <number>2</number>
-       </property>
-       <property name="placeholderText">
-        <string>1</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_baud">
-       <property name="text">
-        <string>Rychlost (baud)</string>
-       </property>
-       <property name="buddy">
-        <cstring>lineEdit_baud</cstring>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QLineEdit" name="lineEdit_dataBitCount">
-       <property name="minimumSize">
-        <size>
-         <width>100</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>150</width>
-         <height>25</height>
-        </size>
+     <item>
+      <widget class="QLabel" name="labelSerialComConfig">
+       <property name="font">
+        <font>
+         <bold>true</bold>
+        </font>
        </property>
        <property name="text">
-        <string/>
+        <string>Konfigurace sériové linky</string>
        </property>
-       <property name="maxLength">
-        <number>2</number>
-       </property>
-       <property name="placeholderText">
-        <string>8</string>
+       <property name="margin">
+        <number>0</number>
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_dataBitCount">
-       <property name="text">
-        <string>Počet datových bitů</string>
+     <item>
+      <layout class="QGridLayout" name="gLayoutConfiguration">
+       <property name="leftMargin">
+        <number>10</number>
        </property>
-       <property name="buddy">
-        <cstring>lineEdit_dataBitCount</cstring>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_stopBitCount">
-       <property name="text">
-        <string>Počet stop bitů</string>
-       </property>
-       <property name="buddy">
-        <cstring>lineEdit_stopBitCount</cstring>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="QComboBox" name="comboBox_2">
-       <property name="minimumSize">
-        <size>
-         <width>100</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>150</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="currentText">
-        <string/>
-       </property>
-       <property name="placeholderText">
-        <string>Žádná</string>
-       </property>
-       <item>
-        <property name="text">
-         <string>Žádná</string>
-        </property>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="lineEditBaud">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>150</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="maxLength">
+          <number>8</number>
+         </property>
+         <property name="placeholderText">
+          <string>9600</string>
+         </property>
+        </widget>
        </item>
-       <item>
-        <property name="text">
-         <string>Lichá</string>
-        </property>
+       <item row="4" column="0">
+        <widget class="QLabel" name="labelFlowCtrl">
+         <property name="text">
+          <string>Řízení toku</string>
+         </property>
+         <property name="buddy">
+          <cstring>comboBox_3</cstring>
+         </property>
+        </widget>
        </item>
-       <item>
-        <property name="text">
-         <string>Sudá</string>
-        </property>
+       <item row="3" column="0">
+        <widget class="QLabel" name="labelParity">
+         <property name="text">
+          <string>Parita</string>
+         </property>
+         <property name="buddy">
+          <cstring>comboBox_2</cstring>
+         </property>
+        </widget>
        </item>
-      </widget>
-     </item>
-     <item row="0" column="2">
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
+       <item row="4" column="1">
+        <widget class="QComboBox" name="comboBox_3">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>150</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="currentText">
+          <string/>
+         </property>
+         <property name="placeholderText">
+          <string>Žádné</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>Žádné</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>XON/XOFF</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>RTS/CTS</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>DSR/DTR</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="lineEdit_stopBitCount">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>150</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="maxLength">
+          <number>2</number>
+         </property>
+         <property name="placeholderText">
+          <string>1</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="labelBaud">
+         <property name="text">
+          <string>Rychlost (baud)</string>
+         </property>
+         <property name="buddy">
+          <cstring>lineEditBaud</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="lineEditDataBitCount">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>150</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="maxLength">
+          <number>2</number>
+         </property>
+         <property name="placeholderText">
+          <string>8</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="labelDataBitCount">
+         <property name="text">
+          <string>Počet datových bitů</string>
+         </property>
+         <property name="buddy">
+          <cstring>lineEditDataBitCount</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="labelStopBitCount">
+         <property name="text">
+          <string>Počet stop bitů</string>
+         </property>
+         <property name="buddy">
+          <cstring>lineEdit_stopBitCount</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QComboBox" name="comboBox_2">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>150</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="currentText">
+          <string/>
+         </property>
+         <property name="placeholderText">
+          <string>Žádná</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>Žádná</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Lichá</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Sudá</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <spacer name="hSpacerConfiguration">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>
    <item>
-    <spacer name="verticalSpacer_2">
+    <spacer name="vSpacer_2">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
@@ -395,8 +402,8 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>lineEdit_baud</tabstop>
-  <tabstop>lineEdit_dataBitCount</tabstop>
+  <tabstop>lineEditBaud</tabstop>
+  <tabstop>lineEditDataBitCount</tabstop>
   <tabstop>lineEdit_stopBitCount</tabstop>
   <tabstop>comboBox_2</tabstop>
   <tabstop>comboBox_3</tabstop>

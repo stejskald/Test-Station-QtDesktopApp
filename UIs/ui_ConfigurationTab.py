@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'c:\Users\xstejs30\Documents\PythonProjects\PyWinApp\main\DP\UIs\ConfigurationTab.ui'
+# Form implementation generated from reading ui file 'UIs/ConfigurationTab.ui'
 #
 # Created by: PyQt6 UI code generator 6.4.2
 #
@@ -32,7 +32,7 @@ class Ui_ConfigurationTab(object):
         self.gridLayout.addWidget(self.dateEdit, 3, 1, 1, 1)
         self.textEditJobDesc = QtWidgets.QTextEdit(parent=ConfigurationTab)
         self.textEditJobDesc.setMinimumSize(QtCore.QSize(100, 0))
-        self.textEditJobDesc.setMaximumSize(QtCore.QSize(500, 16777215))
+        self.textEditJobDesc.setMaximumSize(QtCore.QSize(500, 500))
         self.textEditJobDesc.setObjectName("textEditJobDesc")
         self.gridLayout.addWidget(self.textEditJobDesc, 4, 1, 1, 1)
         self.employeeName = QtWidgets.QLabel(parent=ConfigurationTab)
@@ -80,6 +80,8 @@ class Ui_ConfigurationTab(object):
         self.buttonBox.setObjectName("buttonBox")
         self.gridLayout.addWidget(self.buttonBox, 5, 0, 1, 2)
         self.verticalLayout.addLayout(self.gridLayout)
+        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
+        self.verticalLayout.addItem(spacerItem1)
         self.verticalLayout_2.addLayout(self.verticalLayout)
         self.employeeName.setBuddy(self.comboBoxDept_2)
         self.department.setBuddy(self.lineEdit)
