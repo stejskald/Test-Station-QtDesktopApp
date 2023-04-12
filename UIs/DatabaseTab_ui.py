@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'c:\Git\DP\DP-QtDesktopApp\UIs\DatabaseTab.ui'
+# Form implementation generated from reading ui file 'UIs/DatabaseTab.ui'
 #
 # Created by: PyQt6 UI code generator 6.4.2
 #
@@ -172,7 +172,7 @@ class Ui_DatabaseTab(object):
         self.labelDBService.setObjectName("labelDBService")
         self.verticalLayout.addWidget(self.labelDBService)
         self.gLayoutDBService = QtWidgets.QGridLayout()
-        self.gLayoutDBService.setContentsMargins(10, -1, -1, -1)
+        self.gLayoutDBService.setContentsMargins(10, -1, 10, -1)
         self.gLayoutDBService.setHorizontalSpacing(40)
         self.gLayoutDBService.setObjectName("gLayoutDBService")
         self.labelServiceSelect = QtWidgets.QLabel(parent=DatabaseTab)
@@ -476,7 +476,7 @@ class Ui_DatabaseTab(object):
         self.gLayoutDBService.addWidget(self.lineDeleteBelow, 4, 3, 1, 1)
         self.verticalLayout.addLayout(self.gLayoutDBService)
         self.vLayoutTableViewed = QtWidgets.QVBoxLayout()
-        self.vLayoutTableViewed.setContentsMargins(10, 20, -1, -1)
+        self.vLayoutTableViewed.setContentsMargins(10, 20, 10, 10)
         self.vLayoutTableViewed.setObjectName("vLayoutTableViewed")
         self.gLayoutTableViewed = QtWidgets.QGridLayout()
         self.gLayoutTableViewed.setContentsMargins(0, -1, -1, -1)
@@ -501,10 +501,10 @@ class Ui_DatabaseTab(object):
         self.comboBoxTableViewed.addItem("")
         self.gLayoutTableViewed.addWidget(self.comboBoxTableViewed, 0, 1, 1, 1)
         self.vLayoutTableViewed.addLayout(self.gLayoutTableViewed)
-        self.tableViewSelected = QtWidgets.QTableView(parent=DatabaseTab)
-        self.tableViewSelected.setMinimumSize(QtCore.QSize(750, 400))
-        self.tableViewSelected.setObjectName("tableViewSelected")
-        self.vLayoutTableViewed.addWidget(self.tableViewSelected)
+        self.SQLTableView = QtWidgets.QTableView(parent=DatabaseTab)
+        self.SQLTableView.setMinimumSize(QtCore.QSize(750, 400))
+        self.SQLTableView.setObjectName("SQLTableView")
+        self.vLayoutTableViewed.addWidget(self.SQLTableView)
         self.verticalLayout.addLayout(self.vLayoutTableViewed)
         spacerItem5 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Minimum)
         self.verticalLayout.addItem(spacerItem5)
@@ -543,7 +543,7 @@ class Ui_DatabaseTab(object):
         DatabaseTab.setTabOrder(self.btnUpdate, self.lineEditDeleteCondition)
         DatabaseTab.setTabOrder(self.lineEditDeleteCondition, self.btnDelete)
         DatabaseTab.setTabOrder(self.btnDelete, self.comboBoxTableViewed)
-        DatabaseTab.setTabOrder(self.comboBoxTableViewed, self.tableViewSelected)
+        DatabaseTab.setTabOrder(self.comboBoxTableViewed, self.SQLTableView)
 
     def retranslateUi(self, DatabaseTab):
         _translate = QtCore.QCoreApplication.translate
