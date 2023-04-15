@@ -258,7 +258,7 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__()
 
         self.setWindowTitle("Application for PCB testing")
-        self.setWindowIcon(QIcon(os.path.join(baseDir, "icons", "meter.png")))
+        self.setWindowIcon(QIcon(os.path.join(baseDir, "icons", "pcb.png")))
         self.setMinimumSize(QSize(1200, 900))
         self.showMaximized()
 
