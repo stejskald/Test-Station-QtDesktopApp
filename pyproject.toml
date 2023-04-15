@@ -1,18 +1,22 @@
 [tool.poetry]
 name = "dp-qtdesktopapp"
-version = "0.1.0"
+version = "1.0"
 description = "The service desktop application for the test station"
 authors = ["David Stejskal <211177@vut.cz>"]
 readme = "README.md"
 repository = "https://github.com/Dejv99/DP-QtDesktopApp"
+packages = [{ include = "dp-qtdesktopapp" }]
+include = ["icons", "UIs"]
+
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = ">=3.10,<3.12"
 PyQt6 = "^6.4.2"
 pyqtgraph = "^0.13.2"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.3.0"
+pyinstaller = "^5.10.1"
 
 [tool.black]
 line-length = 88
@@ -20,3 +24,6 @@ line-length = 88
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+run = "dp-qtdesktopapp.dp-qtdesktopapp:main"
