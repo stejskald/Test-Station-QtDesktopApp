@@ -5,8 +5,16 @@
     "python.linting.flake8Args": [
         "--max-line-length=88",
     ],
-    "python.formatting.provider": "black",
-    "editor.formatOnSave": true,
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnSave": true,
+        "black-formatter.args": [
+            "--line-length",
+            "88"
+        ]
+    },
+    // "python.formatting.provider": "none",
+    // "editor.formatOnSave": true,
     "editor.rulers": [
         88
     ],
