@@ -1,27 +1,34 @@
-import ctypes
+import os
+import sys
 from random import randint
 
 import pyqtgraph as pg
 from PyQt6.QtCore import QCoreApplication, QSize, Qt, QTimer
-from PyQt6.QtGui import (QAction, QFont, QFontMetrics, QIcon, QKeySequence,
-                         QPalette)
-from PyQt6.QtSql import (QSqlDatabase, QSqlDriver, QSqlQuery, QSqlQueryModel,
-                         QSqlTableModel)
-from PyQt6.QtWidgets import (QApplication, QMainWindow, QStatusBar, QTabWidget,
-                             QToolBar, QWidget)
+from PyQt6.QtGui import QAction, QFont, QFontMetrics, QIcon, QKeySequence, QPalette
+from PyQt6.QtSql import QSqlDatabase, QSqlQuery, QSqlQueryModel, QSqlTableModel
+from PyQt6.QtWidgets import (
+    QApplication,
+    QMainWindow,
+    QStatusBar,
+    QTabWidget,
+    QToolBar,
+    QWidget,
+)
 
-# from include.AbstractTableModel import TableModel
-from include.SqlQueryModel import SqlQueryModel
-from UIs.ui_ConfigurationTab import Ui_ConfigurationTab
-from UIs.ui_DatabaseTab import Ui_DatabaseTab
-from UIs.ui_MeasurementTab import Ui_MeasurementTab
-from UIs.ui_TerminalTab import Ui_TerminalTab
+from UIs.ConfigurationTab_ui import Ui_ConfigurationTab
+from UIs.DatabaseTab_ui import Ui_DatabaseTab
+from UIs.MeasurementTab_ui import Ui_MeasurementTab
+from UIs.TerminalTab_ui import Ui_TerminalTab
 
-# import sys
-# setting path to parent folder
-# sys.path.append("C:\\Users\\xstejs30\\Documents\\PythonProjects\\PyWinApp\\main\\PyQtModelViews_Databases")
-# print("System paths:")
-# print("\n".join(sys.path))
+baseDir = os.path.dirname(__file__)
+
+try:
+    from ctypes import windll
+
+    myappid = "cz.vut.testing-station.1-0"
+    windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
+except ImportError:
+    pass
 
 
 class ConfigurationTab(QWidget, Ui_ConfigurationTab):
@@ -76,6 +83,25 @@ class TerminalTab(QWidget, Ui_TerminalTab):
         self.setupUi(self)
 
 
+# SELECT * FROM pg_catalog.pg_tables WHERE schemaname != 'pg_catalog' AND schemaname != 'information_schema'
+# Use Promote to... in Qt Designer on the QCOmboBox
+
+# class ComboTest : public QComboBox {
+#   Q_OBJECT
+#  public:
+#   explicit ComboTest(QWidget* parent = nullptr);
+#  public slots:
+#  public:
+#   virtual void showPopup() override {
+#     clear();
+#     for (int var = 0; var < 10000; ++var) {
+#       addItem("TEST" + QString::number(var));
+#     }
+#     QComboBox::showPopup();
+#   }
+# };
+
+
 # pyuic6 UIs/DatabaseTab.ui -o UIs/ui_DatabaseTab.py
 class DatabaseTab(QWidget, Ui_DatabaseTab):
     def __init__(self, parent=None):
@@ -100,9 +126,9 @@ class DatabaseTab(QWidget, Ui_DatabaseTab):
         self.btnUpdate.clicked.connect(self.updateTableRecords)
         self.btnDelete.clicked.connect(self.deleteTableRecords)
 
-        self.queryModelSQL = QSqlQueryModel()
-        # self.queryModelSQL = SqlQueryModel()
-        self.tableViewSelected.setModel(self.queryModelSQL)
+        # self.SQLQueryModel = SqlQueryModel()
+        self.SQLQueryModel = QSqlQueryModel()
+        self.SQLTableView.setModel(self.SQLQueryModel)
 
     def loginToDB(self):
         user = self.lineEditUser.text()
@@ -176,10 +202,7 @@ class DatabaseTab(QWidget, Ui_DatabaseTab):
                 + "Bylo vybráno {} záznamů.".format(self.querySelect.size())
             )
 
-        self.queryModelSQL.setQuery(self.querySelect)
-
-        # print(self.queryModelSQL.rowCount())
-        # print(self.queryModelSQL.columnCount())
+        self.SQLQueryModel.setQuery(self.querySelect)
 
     def updateTableRecords(self):
         queryUpdate = QSqlQuery(self.devDB)
@@ -235,7 +258,7 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__()
 
         self.setWindowTitle("Application for PCB testing")
-        self.setWindowIcon(QIcon("icons/meter02-icon.png"))
+        self.setWindowIcon(QIcon(os.path.join(baseDir, "icons", "meter.png")))
         self.setMinimumSize(QSize(1200, 900))
         self.showMaximized()
 
@@ -243,7 +266,9 @@ class MainWindow(QMainWindow):
         self.toolbar.setIconSize(QSize(16, 16))
         self.addToolBar(self.toolbar)
 
-        btnBugAction = QAction(QIcon("icons/bug.png"), "&Bug simulation", self)
+        btnBugAction = QAction(
+            QIcon(os.path.join(baseDir, "icons", "bug.png")), "&Bug simulation", self
+        )
         btnBugAction.setStatusTip("Simulate a Bug.")
         btnBugAction.setCheckable(True)
         self.toolbar.addAction(btnBugAction)
@@ -255,7 +280,9 @@ class MainWindow(QMainWindow):
         fileSubmenu = fileMenu.addMenu("&Submenu")
         fileSubmenu.addAction(btnBugAction)
         btnExitApplication = QAction(
-            QIcon("icons/cross.png"), "E&xit Application", self
+            QIcon(os.path.join(baseDir, "icons", "cross.png")),
+            "E&xit Application",
+            self,
         )
         btnExitApplication.setStatusTip("Push to exit the Application.")
         btnExitApplication.triggered.connect(QCoreApplication.instance().quit)
@@ -306,19 +333,13 @@ class MainWindow(QMainWindow):
             self.btnShowMainToolbar.setChecked(False)
 
 
-if __name__ == "__main__":
-    # https://stackoverflow.com/questions/1551605/how-to-set-applications-taskbar-icon-in-windows-7/1552105#1552105
-    myappid = "mycompany.myproduct.subproduct.version"  # arbitrary string
-    ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
-
-    app = QApplication([])
+def main():
+    app = QApplication(sys.argv)
 
     window = MainWindow()
     window.show()
     app.exec()
 
-    # print(app.applicationDirPath())
-    # app.addLibraryPath(
-    #     "C:/Users/xstejs30/Documents/PythonProjects/PyWinApp/.venv/lib/site-packages/PyQt6/Qt6/bin"
-    # )
-    # print(app.libraryPaths())
+
+if __name__ == "__main__":
+    main()
