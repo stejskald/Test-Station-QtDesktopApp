@@ -1210,7 +1210,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
       </layout>
      </item>
      <item>
-      <widget class="QTableView" name="tableViewSelected">
+      <widget class="QTableView" name="SQLTableView">
        <property name="minimumSize">
         <size>
          <width>750</width>
@@ -1259,7 +1259,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
   <tabstop>lineEditDeleteCondition</tabstop>
   <tabstop>btnDelete</tabstop>
   <tabstop>comboBoxTableViewed</tabstop>
-  <tabstop>tableViewSelected</tabstop>
+  <tabstop>SQLTableView</tabstop>
  </tabstops>
  <resources/>
  <connections/>
