@@ -1,2 +1,3 @@
-# DP-QtDesktopApp
-The service desktop application for the test station
+# Qt Desktop Application for PCB Test Station
+
+Master thesis
